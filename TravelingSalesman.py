@@ -1,4 +1,3 @@
-import numpy as np
 import random
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -7,17 +6,11 @@ from tqdm import trange
 
 def readTSP(filename):
     coord_list = []
-    # x_list = []
-    # y_list = []
     with open(filename) as fp:
-        Lines = fp.readlines()
-        for line in Lines:
-            # print(line.strip())
-            # print(line.strip().split("   "))
+        lines = fp.readlines()
+        for line in lines:
             x, y = line.strip().split("   ")
             coord_list.append((float(x), float(y)))
-            # x_list.append(float(x))
-            # y_list.append(float(y))
     return coord_list
 
 def localSwapSearch(parent, coords, iterations=10):
@@ -158,31 +151,11 @@ def plotPath(gene):
     plt.xlabel("Final distance: " + str(-fitness_list[-1]))
     print(f"Final distance: {fitness_list[-1]}")
 
-coords = readTSP('file-tsp.txt')
-fitness_list, best_gene = geneticAlgorithmTA(coords, mutate_prob=0.1, iterations=5000, population_size=10, memetic=False)
-# plotTSP(coords)
-plotGA(fitness_list)
-plotPath(best_gene)
-# nr_cities = len(coords)
-# take_nr_cities = 10
-# coords = coords[0:take_nr_cities]
-# print(coords)
-# # showSalesMan(coords)
-# num_seq = generateNumSeq(take_nr_cities-1)
-# print(num_seq)
-# test_coords = [(0.2554, 18.2366), (0.4339, 15.2476), (0.7377, 8.3137)]
-# test_seq = [0, 1, 2]
-# test_seq_2 = [2, 1, 0]
-# test_seq_3 = [1, 2, 0]
-# print(fitness(num_seq, coords))
-# print(fitness(test_seq, test_coords))
-# print(fitness(test_seq_2, test_coords))
-# print(fitness(test_seq_3, test_coords))
-# p1 = [3, 5, 7, 2, 1, 6, 4, 8]
-# p2 = [2, 5, 7, 6, 8, 1, 3, 4]
-# print(p1)
-# print(p2)
-# np1 = orderCrossover(p1, p2)
-# print(np1)
-# mp1 = orderMutation(np1)
-# print(mp1)
+if __name__ == '__main__':
+    coords = readTSP('file-tsp.txt')
+    fitness_list, best_gene = geneticAlgorithmTA(coords, mutate_prob=0.1, iterations=5000, population_size=10, memetic=False)
+    plotGA(fitness_list)
+    plotPath(best_gene)
+    fitness_list, best_gene = geneticAlgorithmTA(coords, mutate_prob=0.1, iterations=1000, population_size=10, memetic=True)
+    plotGA(fitness_list)
+    plotPath(best_gene)
